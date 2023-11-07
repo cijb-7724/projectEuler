@@ -1,25 +1,13 @@
-main = 
-	print b
-
---a = take 5 (map (\x -> show (10*x)) [1..])
---b = take 6 (map (\x -> show(x) ++ "0") [1..])
-
---map :: (a -> b) -> [a] -> [b]
---fmap :: (a -> [b]) => ([a] -> [b])
+main =
+	print (calc a)
 
 
-a = [1, 2, 3, 4, 5]
-g x = 2*x
---b = map f a
+a = [1..1000-1]
 
--- write map by fmap
-func  n = [1..n]
-fmap' f = concat.map f
-
-myMap f list =
-	fmap' (\a -> [f a]) list
-
-b = myMap func a
-
-
+calc :: [Int] -> Int
+calc [] = 0
+calc (hd:tl)
+	| mod hd 3 == 0 = hd + calc tl
+	| mod hd 5 == 0 = hd + calc tl
+	| otherwise = calc tl
 
