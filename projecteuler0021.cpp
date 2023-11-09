@@ -177,23 +177,27 @@ int d(int n) {
             sum += n/i;
         }
     }
-    if ((n/sqrt(n))*(n/sqrt(n)) == n) sum -= sqrt(n);
+    int sn = sqrt(n);
+    if (sn*sn == n) sum -= sqrt(n);
     return sum-n;
 }
 
 int main() {
-    int n = 300;
+    int n = 10000;
     int ans = 0;
+    // for (int i=1; i<n; ++i) {
+    //     for (int j=i; j<n; ++j) {
+    //         if (i == j) continue;
+    //         if (i == d(j)) ans += i+j;
+    //         else if (j == d(i)) {
+    //             ans += i+j;
+    //         }
+    //     }
+    // }
     for (int i=1; i<=n; ++i) {
-        for (int j=i; j<=n; ++j) {
-            if (i == d(j)) {
-                ans += i+j;
-                cout << i << ' ' << j << endl;
-            }
-        }
+        if (d(d(i)) == i) ans += i;
     }
     cout << ans << endl;
-    cout << d(220) << endl;
 }
 
 
