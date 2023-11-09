@@ -170,11 +170,41 @@ find the sum of the digits int the number 100!
 */
 
 
-int main() {
+void stringTimesInt(vi &v, int k) {
+    int n = v.size();
+    int up = 0;
+    for (int i=0; i<n-1; ++i) {
+        if (v[i]*k+up < 10) {
+            v[i] = k*v[i]+up;
+            up = 0;
+        } else {
+            int m = k*v[i] + up;
+            // cout << m << endl;
+            v[i] = m%10;
+            up = m/10;
+            // cout << "up " << up << endl;
+        }
+    }
 }
 
+
+int main() {
+    int n = 100;
+    vi v(160, 0);
+    v[0] = 1;
+    for (int i=1; i<=n; ++i) {
+        stringTimesInt(v, i);
+        // for (int j=0; j<v.size(); ++j) cout << v[j];
+        // cout << endl;
+    }
+    int ans = 0;
+    for (int i=0; i<160; ++i) ans += v[i];
+    cout << ans << endl;
+}
+
+
 /*
-the answer is 
+the answer is 648
 */
 
 
