@@ -171,11 +171,9 @@ Evaluate the sum of all the amicable numbers under 10000.
 
 int d(int n) {
     int sum = 0;
-    for (int i=1; i<=sqrt(n); ++i) {
-        if (n % i == 0) {
+    for (int i=1; i<=sqrt(n); ++i) if (n % i == 0) {
             sum += i;
             sum += n/i;
-        }
     }
     int sn = sqrt(n);
     if (sn*sn == n) sum -= sqrt(n);
@@ -185,24 +183,16 @@ int d(int n) {
 int main() {
     int n = 10000;
     int ans = 0;
-    // for (int i=1; i<n; ++i) {
-    //     for (int j=i; j<n; ++j) {
-    //         if (i == j) continue;
-    //         if (i == d(j)) ans += i+j;
-    //         else if (j == d(i)) {
-    //             ans += i+j;
-    //         }
-    //     }
-    // }
-    for (int i=1; i<=n; ++i) {
-        if (d(d(i)) == i) ans += i;
+    for (int i=1; i<n; ++i) if (d(d(i)) == i) {
+        if (d(i) == i) continue;
+        ans += d(i);
     }
     cout << ans << endl;
 }
 
 
 /*
-the answer is 
+the answer is 31626
 */
 
 
