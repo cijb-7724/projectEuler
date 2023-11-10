@@ -172,7 +172,7 @@ and is called abundant if this sum exceeds n.
 
 as 12 is the smallest abundant number, 1+2+3+4+6=16, the smallest number
 that can be written as the sum of two abundant numbers is 24.
-by mathematical analysis, it can be shown that all integers greater than 28124
+by mathematical analysis, it can be shown that all integers greater than 28123
 can by written as the sum of two abundant numbers.
 however, this upper limit cannot be reduced any further by analysis
 even though it is known that the greatest number that cannot be expressed as the sum of
@@ -180,32 +180,83 @@ two abundant numbers is less than this limit.
 
 find the sum of all the positive integers which cannot be written as the sum of two abundant numbers.
 */
-int judgeAbundant(int n) {
-    int sum = 1;
-    for (int i=2; i<=sqrt(n); ++i) if (n%i == 0) sum += i+n/i;
+// int judgeAbundant(int n) {
+//     int sum = 1;
+//     for (int i=2; i<=sqrt(n); ++i) {
+//         if (n%i == 0) {
+//             sum += i+n/i;
+//             // cout << i << ' ' << n/i << endl;
+//         }
+//     }
+//     if (sqrt(n)*sqrt(n) == n) sum -= sqrt(n);
+//     // cout << "sum = " << sum << endl;
+//     return sum > n ? true : false;
+// }
+ll judgeAbundant(ll n) {
+    ll sum = 1;
+    for (ll i=2; i*i<=n; ++i) {
+        if (n%i == 0) {
+            if (i*i == n) {
+                sum += i;
+            } else
+                sum += i+n/i;
+            // cout << i << ' ' << n/i << endl;
+        }
+    }
     if (sqrt(n)*sqrt(n) == n) sum -= sqrt(n);
+    // cout << "sum = " << sum << endl;
     return sum > n ? true : false;
 }
 int main() {
-    ll mx = 28124, ans = 0;
+    // for (int i=1; i<10; ++i) {
+    //     cout << "i = " << i << endl;
+    //     judgeAbundant(i);
+    // }
+    // return 0;
+    ll mx = 28123, ans = 0;
     ll tmp = 0;
     vi abundants;
     for (int i=1; i<=mx; ++i) if (judgeAbundant(i)) abundants.push_back(i);
     cout << abundants.size() << endl;
-    for (int i=1; i<=mx; ++i) {
-        int found = 0;
-        for (int j=0; j<!found && abundants.size(); ++j) {
-            found |= binary_search(abundants.begin(), abundants.end(), i-abundants[j]);
+    // for (int i=1; i<=mx; ++i) {
+    //     int found = 0;
+    //     for (int j=0; !found && j<abundants.size(); ++j) {
+    //     // for (int j=0; j<abundants.size() && !found; ++j) {
+    //         found |= binary_search(abundants.begin(), abundants.end(), i-abundants[j]);
+    //     }
+    //     if (!found) ans += i;
+    //     if (found) tmp += i;
+    // }
+    // vi abundantSum;
+    // for (int i=0; i<abundants.size(); ++i) {
+    //     for (int j=i; j<abundants.size(); ++j) {
+    //         abundantSum.push_back(abundants[i] + abundants[j]);
+    //     }
+    // }
+    // sort (abundantSum.begin(), abundantSum.end());
+    // for (int i=1; i<=mx; ++i) {
+    //     if (!binary_search(abundantSum.begin(), abundantSum.end(), i)) ans += i;
+    // }
+    vi abundantSum(mx*2, 0);
+    for (int i=0; i<abundants.size(); ++i) {
+        for (int j=i; j<abundants.size(); ++j) {
+            abundantSum[abundants[i] + abundants[j]] = 1;
         }
-        if (!found) ans += i;
-        if (found) tmp += i;
+    }
+    for (int i=1; i<=mx; ++i) {
+        // if (!binary_search(abundantSum.begin(), abundantSum.end(), i)) ans += i;
+        if (abundantSum[i] == 0) ans += i;
     }
     cout << ans << endl;
     cout << tmp << endl;
+    for (int i=0; i<100; ++i) {
+        cout << i << ' ' << abundantSum[i] << el;
+    }
+    cout << endl;
 }
 
-/*
-the answer is 233168
+/*6946883
+the answer is 
 */
 
 
