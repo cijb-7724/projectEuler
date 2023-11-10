@@ -189,10 +189,8 @@ int judgeAbundant(int n) {
 }
 int main() {
     ll mx = 28123, ans = 0;
-    ll tmp = 0;
-    vi abundants;
+    vi abundants, abundant2Sum(mx*2, 0);
     for (int i=1; i<=mx; ++i) if (judgeAbundant(i)) abundants.push_back(i);
-    vi abundant2Sum(mx*2, 0);
     for (int i=0; i<abundants.size(); ++i) for (int j=i; j<abundants.size(); ++j) 
         abundant2Sum[abundants[i] + abundants[j]] = 1;
     for (int i=1; i<=mx; ++i) if (1-abundant2Sum[i]) ans += i;
