@@ -169,19 +169,35 @@ what is the index of the first term in the fibonacci sequence
 to contain 1000 digits?
 */
 
-int main() {
-    ll n = 4*1e6;
-    ll a=1, b=2, sum = 0;
-    while (b < n) {
-        if (b%2 == 0) sum += b;
-        b += a;
-        a = b-a;
+void sumVec(vi &c, vi &a, vi &b) {//c = a + b
+    int n = a.size();
+    c.assign(n, 0);
+    for (int i=0; i<n-1; ++i) {
+        c[i] += a[i] + b[i];
+        if (c[i] >= 10) {
+            c[i+1] = c[i]/10;
+            c[i] %= 10;
+        }
     }
-    cout << sum << endl;
+}
+
+int main() {
+    int d = 1100;
+    vi a(d, 0), b(d, 0), c(d, 0);
+    a[0] = b[0] = 1;
+    for (int i=0; i<10000000; ++i) {
+        sumVec(c, a, b);
+        if (c[999]) {
+            cout << i+3 << endl;
+            return 0;
+        }
+        a = b;
+        b = c;
+    }
 }
 
 /*
-the answer is 
+the answer is 4782
 */
 
 
